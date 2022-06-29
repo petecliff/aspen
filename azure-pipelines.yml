@@ -24,27 +24,25 @@ stages:
       displayName: 'Build and publish'
       pool:
         vmImage: 'ubuntu-20.04'
-    variables:
-      dotnetSdkVersion: '6.x'
-      dotnetFramework: 'net6.0'
-      targetRuntime: 'linux-64'
-    steps:
-    - task: UseDotNet@2
-      displayName: 'Use .NET SDK $(dotnetSdkVersion)'
-      inputs:
+      variables:
+        dotnetSdkVersion: '6.x'
+        dotnetFramework: 'net6.0'
+        targetRuntime: 'linux-64'
+      steps:
+      - task: UseDotNet@2
+        displayName: 'Use .NET SDK $(dotnetSdkVersion)'
+        inputs:
         version: '$(dotnetSdkVersion)'
-    - script: dotnet build --configuration $(BuildConfiguration)
-      displayName: 'Build .NET $(dotnetSdkVersion) application'
-
-    - task: DotNetCoreCli@2
-      inputs:
+      - script: dotnet build --configuration $(BuildConfiguration)
+        displayName: 'Build .NET $(dotnetSdkVersion) application'
+      - task: DotNetCoreCli@2
+        inputs:
         command: publish
         publishWebProjects: True
         arguments: '--configuration $(BuildConfiguration) --framework $(dotnetFramework) --runtime $(targetRuntime) --self-contained --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
-
-    - task: PublishPipelineArtifact@1
-      inputs:
+      - task: PublishPipelineArtifact@1
+        inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)'
         artifactName: 'AspenWebApp'
 
