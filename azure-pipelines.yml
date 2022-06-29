@@ -16,7 +16,7 @@ variables:
   azureAppServiceDevName: 'aspen-app-service-dev'
   azureAppServiceTestName: 'aspen-app-service-test'
 
-steps:
+stages:
   - stage: 'Build'
     displayName: 'Bella the builder'
     jobs:
