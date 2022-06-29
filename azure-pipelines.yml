@@ -27,7 +27,7 @@ stages:
       variables:
         dotnetSdkVersion: '6.x'
         dotnetFramework: 'net6.0'
-        targetRuntime: 'linux-64'
+        targetRuntime: 'linux-x64'
       steps:
       - task: UseDotNet@2
         displayName: 'Use .NET SDK $(dotnetSdkVersion)'
