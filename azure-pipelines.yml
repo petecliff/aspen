@@ -21,17 +21,13 @@ stages:
     displayName: 'Bella the builder'
     jobs:
     - job: 'Build'
-      displayName: 'Build job'
+      displayName: 'Build and publish'
       pool:
         vmImage: 'ubuntu-20.04'
-        demands:
-        - npm
-
     variables:
       dotnetSdkVersion: '6.x'
       dotnetFramework: 'net6.0'
       targetRuntime: 'linux-64'
-
     steps:
     - task: UseDotNet@2
       displayName: 'Use .NET SDK $(dotnetSdkVersion)'
