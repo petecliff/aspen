@@ -46,7 +46,7 @@ stages:
           artifactName: 'AspenWebApp'
 
   - stage: 'DeployDev'
-    displayName: 'Deploy - Dev'
+    displayName: 'Dougal Dev Deployer'
     condition: |
       and
       (
@@ -71,7 +71,31 @@ stages:
                 appName: $(azureAppServiceDevName)
                 package: '$(Pipeline.Workspace)/AspenWebApp/$(buildConfiguration)/*.zip'
 
-
+  - stage: 'DeployTest'
+    displayName: 'Trinny Test Deployer'
+    condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
+      )
+    jobs:
+    - deployment: 'DeployJobTest'
+      pool:
+        vmImage: 'ubuntu-20.04'
+      environment: dev
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - download: current
+              artifact: 'AspenWebApp'
+            - task: AzureWebApp@1
+              displayName: 'Deploy to Azure App Service'
+              inputs:
+                azureSubscription: $(azureServiceConnectorName)
+                appName: $(azureAppServiceTestName)
+                package: '$(Pipeline.Workspace)/AspenWebApp/$(buildConfiguration)/*.zip'
 
 
 
