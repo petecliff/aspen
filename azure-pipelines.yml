@@ -38,7 +38,7 @@ stages:
         inputs:
           command: publish
           publishWebProjects: True
-          arguments: '--configuration $(buildConfiguration) --framework $(dotnetFramework) --runtime $(targetRuntime) --self-contained --output $(Build.ArtifactStagingDirectory)'
+          arguments: '--configuration $(buildConfiguration) --framework $(dotnetFramework) --runtime $(targetRuntime) --self-contained --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
           zipAfterPublish: True
       - task: PublishPipelineArtifact@1
         inputs:
