@@ -32,19 +32,19 @@ stages:
       - task: UseDotNet@2
         displayName: 'Use .NET SDK $(dotnetSdkVersion)'
         inputs:
-        version: '$(dotnetSdkVersion)'
+          version: '$(dotnetSdkVersion)'
       - script: dotnet build --configuration $(BuildConfiguration)
         displayName: 'Build .NET $(dotnetSdkVersion) application'
       - task: DotNetCoreCli@2
         inputs:
-        command: publish
-        publishWebProjects: True
-        arguments: '--configuration $(BuildConfiguration) --framework $(dotnetFramework) --runtime $(targetRuntime) --self-contained --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: True
+          command: publish
+          publishWebProjects: True
+          arguments: '--configuration $(BuildConfiguration) --framework $(dotnetFramework) --runtime $(targetRuntime) --self-contained --output $(Build.ArtifactStagingDirectory)'
+          zipAfterPublish: True
       - task: PublishPipelineArtifact@1
         inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)'
-        artifactName: 'AspenWebApp'
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'AspenWebApp'
 
 
 
