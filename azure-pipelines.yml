@@ -14,7 +14,7 @@ variables:
   releaseBranchName: 'main'
   azureServiceConnectorName: 'Dev Subscription (e58a1fd6-05ea-4fac-9e3d-e0d75f25519c)'
   azureAppServiceDevName: 'aspen-app-service-dev'
-  azureAppServiceTestName: 'aspen-app-service-test'
+  azureAppServiceTestName: 'aspen-app-service'
   dotnetSdkVersion: '6.x'
   dotnetFramework: 'net6.0'
   targetRuntime: 'linux-x64'
@@ -48,11 +48,11 @@ stages:
   - stage: 'DeployDev'
     displayName: 'Deploy - Dev'
     condition: |
-    and
-    (
-      succeeded(),
-      eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
-    )
+      and
+      (
+        succeeded(),
+        eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
+      )
     jobs:
     - deployment: 'DeployJobDev'
       pool:
