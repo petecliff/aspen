@@ -21,7 +21,7 @@ variables:
 
 stages:
   - stage: 'Build'
-    displayName: 'Bella the builder'
+    displayName: 'Build app'
     jobs:
     - job: 'Build'
       displayName: 'Build and publish'
@@ -46,7 +46,7 @@ stages:
           artifactName: 'AspenWebApp'
 
   - stage: 'DeployDev'
-    displayName: 'Dougal Dev Deployer'
+    displayName: 'Deploy to Dev'
     condition: |
       and
       (
@@ -72,7 +72,7 @@ stages:
                 package: '$(Pipeline.Workspace)/AspenWebApp/$(buildConfiguration)/*.zip'
 
   - stage: 'DeployTest'
-    displayName: 'Trinny Test Deployer'
+    displayName: 'Deploy to Test'
     condition: |
       and
       (
